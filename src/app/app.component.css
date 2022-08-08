@@ -1,0 +1,55 @@
+html, body {
+  min-height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.cont {
+  min-height: 100%;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  justify-content: space-between;
+  height: 60px;
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+.options {
+  font-size: medium;
+  font-weight: 400;
+  font-family: Roboto;
+  padding: 4px;
+}
+
+.options span {
+  padding: 8px;
+  text-align: justify;
+}
+
+
+.title {
+  font-family: stencil;
+  font-weight: 400;
+  font-size: large;
+  cursor: pointer;
+}
+
+.main {
+  margin: 0px;
+}
+
+.footer {
+  margin-top: auto;
+  justify-content: center;
+  font-size: medium;
+  font-weight: 200;
+  height: 40px;
+}
+
+

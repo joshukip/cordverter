@@ -1,0 +1,28 @@
+#map {
+  height: 70vh;
+  width: 100vw;
+  /* background-color: #04041b; */
+}
+
+.draw {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 18px;
+}
+
+.drawicons, .otherbtns, .togglebasemap {
+  display: flex;
+  background-color: goldenrod;
+  border-radius: 11px;
+  margin-right: 11px;
+}
+
+.togglebasemap {
+  align-items: center;
+  padding: 4px;
+}
+
+.mapcoordinate {
+  cursor: all-scroll;
+}

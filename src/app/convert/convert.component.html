@@ -1,0 +1,275 @@
+<div class="maincontainer">
+<!-- Tabs sections -->
+
+  <mat-tab-group animationDuration="0ms" color="accent" mat-align-tabs="center" class="tabContainer">
+
+  <!-- 1st Tab -- Rectangular to Geodetic -->
+  <mat-tab label="Rectangular to Geodetic">
+    <div class="itab">
+
+      <!-- Select options -->
+      <mat-form-field appearance="outline"  class="ellipsoideselect">
+        <mat-label>Choose Ellipsoid</mat-label>
+        <mat-select [(value)]="selectedOption">
+          <mat-option *ngFor="let item of ellipsoids" [value]="item.value">
+            {{item.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Adding points on the app -->
+      <div class="form">
+
+        <p class="titlehead">Enter points( X, Y, Z )</p>
+
+        <form [formGroup]="inputform">
+          <div class="flex-box">
+              <div class="formfieldbox">
+
+                <div class="formfield">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input
+                      formControlName="x"
+                      type="number"
+                      matInput
+                      placeholder="X">
+                  </mat-form-field>
+                </div>
+                <div class="formfield">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input
+                      formControlName="y"
+                      type="number"
+                      matInput
+                      placeholder="Y">
+                  </mat-form-field>
+                </div>
+                <div class="formfield">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input
+                      formControlName="z"
+                      type="number"
+                      matInput
+                      placeholder="Z">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- Add button -->
+              <div class="addPointBtn">
+                <button class="btn" (click)="addRecPoint()">Add point</button>
+              </div>
+
+            </div>
+        </form>
+
+      </div>
+
+      <!-- Uploader  -->
+      <p class="titlehead">Or Browse from Files</p>
+      <app-uploader class="uploader" (fileData)="receiveRecData($event)"></app-uploader>
+
+      <!-- Data Table *ngIf="this.recList.length > 0" -->
+      <div class="datatable" >
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th *ngFor="let item of recTblColumns">
+                  {{item}}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let point of recList">
+              <td scope="row">{{point.x}}</td>
+              <td>{{point.y}}</td>
+              <td>{{point.z}}</td>
+              <td>
+                <button mat-button class="primary">Delete Row</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Buttons -->
+      <div class="btns1">
+        <button mat-button style="margin-right: 10px;" class="btn" (click)="reset()">Reset Table</button>
+        <button mat-button class="btn" (click)="converttoGeo()">Convert & Save as CSV</button>
+      </div>
+
+    </div>
+  </mat-tab>
+
+    <!-- 2nd Tab -- Geodetic to Rectangular -->
+
+    <mat-tab label="Geodetic to Rectangular">
+      <div class="itab">
+
+        <!-- Ellipsoid select -->
+        <mat-form-field appearance="outline" class="ellipsoideselect">
+          <mat-label>Choose Ellipsoid</mat-label>
+          <mat-select [(value)]="selectedOption">
+            <mat-option *ngFor="let item of ellipsoids" [value]="item.value">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- Adding points on the app  -->
+
+        <p class="titlehead">Degree(&deg;), Minutes(&apos;), Seconds(&quot;)</p>
+        <form class="example-form" [formGroup]="geotoRecForm">
+          <div class="flex-box">
+            <!-- Latitude -->
+            <div class="sectTitle">
+              <span>LATITUDE:</span>
+            </div>
+            <div class="latlongheigth">
+
+              <div>
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <!-- <mat-label>Telephone</mat-label> -->
+                  <input
+                  formControlName="latdeg"
+                  type="number"
+                  matInput
+                  placeholder="Degrees">
+                  <span style="font-size: x-large;" matSuffix>&#176;</span>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <!-- <mat-label>Telephone</mat-label> -->
+                  <input
+                  formControlName="latmin"
+                  type="number"
+                  matInput
+                  placeholder="Minutes">
+                  <span style="font-size: x-large;" matSuffix>&apos;</span>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <!-- <mat-label>Telephone</mat-label> -->
+                  <input
+                  formControlName="latsec"
+                  type="number"
+                  matInput
+                  placeholder="Seconds">
+                  <span style="font-size: x-large;" matSuffix>&quot;</span>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- Longitude -->
+            <div class="sectTitle">
+              <span>LONGITUDE:</span>
+            </div>
+            <div class="latlongheigth">
+              <!-- <div class="option">
+                <span class="opt">LONGITUDE:</span>
+              </div> -->
+              <div class="option">
+                <!-- <span style=' background-color: aqua;'class="type">LONGITUDE: </span> -->
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <!-- <mat-label>Telephone</mat-label> -->
+                  <input
+                  formControlName="longdeg"
+                  type="number"
+                  matInput
+                  placeholder="Degrees">
+                  <span style="font-size: x-large;" matSuffix>&#176;</span>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <!-- <mat-label>Telephone</mat-label> -->
+                  <input
+                  formControlName="longmin"
+                  type="number"
+                  matInput
+                  placeholder="Minutes">
+                  <span style="font-size: x-large;" matSuffix>&apos;</span>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <!-- <mat-label>Telephone</mat-label> -->
+                  <input
+                  formControlName="longsec"
+                  type="number"
+                  matInput
+                  placeholder="Seconds">
+                  <span style="font-size: x-large;" matSuffix>&quot;</span>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- Height -->
+            <div class="sectTitle">
+              <span>HEIGHT:</span>
+            </div>
+            <div class="height">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <!-- <mat-label>Height</mat-label> -->
+                <input
+                formControlName="height"
+                type="number"
+                matInput
+                placeholder="metres">
+                <span style="font-size: medium;" matSuffix>m</span>
+              </mat-form-field>
+            </div>
+            <div class="addPointBtn">
+              <button mat-flat-button class="btn" (click)="addGeoPoint()">Add Point</button>
+            </div>
+          </div>
+        </form>
+        <!-- [{{this.geotoRecForm.value.latdeg }} ; {{this.geotoRecForm.value.latmin}} ; {{this.geotoRecForm.value.latsec}}] -->
+
+
+
+        <!-- Upload files component -->
+        <p class="titlehead">Or Browse from Files</p>
+        <app-uploader class="uploader" (fileData)="receiveGeoData($event)"></app-uploader>
+
+
+        <!-- Data Table *ngIf="this.recList.length > 0" -->
+        <div class="datatable" >
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th *ngFor="let item of converted? recTblColumns: geoTblColumns">
+                  {{item}}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let point of converted? recListConverted: geoList">
+                <td scope="row">{{ converted? point.x: point.symboledlatitude}}</td>
+                <td>{{ converted? point.y: point.symboledlongitude}}</td>
+                <td>{{ converted? point.z: point.symboledheight}}</td>
+                <td>
+                  <button mat-button class="primary">Delete Row</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Buttons -->
+        <div class="btns1">
+          <button mat-button class="btn" (click)="reset()">Reset Table</button>
+          <button mat-button class="btn" (click)="converttoRec()">Convert & Save as CSV</button>
+          <!-- <button mat-button class="btn" (click)="downloadCSV(recListConverted)">saveCSV</button> -->
+        </div>
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+
+
+</div>
+
+
+

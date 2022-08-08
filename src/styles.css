@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import 'ol/ol.css'; /* For openlayers standard styling*/
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.options .active{
+  /* border-top: 4px solid #065a60; */
+  border-bottom: 2px solid goldenrod;
+}
+
+.options span:hover{
+  color: #6b9080;
+  cursor: pointer;
+}

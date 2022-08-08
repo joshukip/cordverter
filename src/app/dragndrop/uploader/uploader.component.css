@@ -1,0 +1,38 @@
+input[type="file"] {
+  display: none;
+}
+
+.choosefile {
+  margin: 20px 0;
+  width: 40%;
+  height: 40px;
+  border: 2px solid #ccc;
+  border-radius: 11px;
+  display: inline-block;
+  font-weight: 200;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.choosefile:hover {
+  border: 2px solid #081c15;
+}
+.dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-weight: 200;
+  width: 60%;
+  height: 150px;
+  border: 2px solid #ccc;
+  border-radius: 11px;
+  background: rgb(255, 255, 255);
+  /* color: rgb(8, 73, 16); */
+}
+
+.dropzone.hovering {
+  background-color: green;
+  outline: none;
+  text-transform: lowercase;
+}

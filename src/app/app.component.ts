@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'cod-converter';
+  title = 'COD CONVERTER';
+  year = this.getCurrentYear();
+
+  getCurrentYear() {
+    const date = new Date;
+    const year = date.getFullYear();
+
+    return year;
+  }
 }

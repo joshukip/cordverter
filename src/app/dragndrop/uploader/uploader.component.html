@@ -1,0 +1,44 @@
+<!-- Choose File -->
+<div>
+  <label for="file-upload" class="choosefile">
+    Choose from files
+  </label>
+  <input (change)="onFileChanged($event)" id="file-upload" type="file" accept=".csv"/>
+
+  <!-- Drop zone -->
+  <div class="dropzone"
+   dropzone
+   (hovered)="toggleHover($event)"
+   (dropped)="onDrop($event)"
+   [class.hovering]="isHovering">
+
+    <h3> Drag & Drop CSV files here</h3>
+
+  </div>
+</div>
+
+<!-- <div *ngIf="fileReady">
+  <div class="datatable" >
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th *ngFor="let item of header">
+              {{item}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data">
+          <td scope="row">{{item.x}}</td>
+          <td>{{item.y}}</td>
+          <td>{{item.z}}</td>
+          <td>
+            <button mat-button class="primary">Delete Row</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> -->
+
+

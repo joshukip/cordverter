@@ -1,0 +1,65 @@
+<div id="map" [class]="mousehover? 'mapcoordinate' : '' "></div>
+
+<div class="draw">
+
+  <div class="togglebasemap">
+    <!-- <mat-radio-group>
+      <mat-radio-button color="primary" value="1">
+        TOGGLE BASEMAP
+      </mat-radio-button>
+    </mat-radio-group> -->
+    <button mat-icon-button title="Toggle Basemap" (click)="toggleBasemap()">
+      <mat-icon *ngIf="bmapvisible" >layers_clear</mat-icon>
+      <mat-icon *ngIf="!bmapvisible" >layers</mat-icon>
+    </button>
+    <button mat-icon-button title="Pick Coordinate" (click)="getMousePosition()">
+      <mat-icon>center_focus_strong</mat-icon>
+    </button>
+    <button mat-icon-button title="Set Projection">
+      <mat-icon>public</mat-icon>
+    </button>
+    <button mat-icon-button title="Import Feature">
+      <mat-icon>folder</mat-icon>
+    </button>
+  </div>
+
+  <div class="drawicons">
+    <button mat-icon-button title="Toggle Edits" (click)="toggleEdits()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button [disabled]="!edit" mat-icon-button title="Polygon" (click)="changeGeometry('Polygon')">
+      <mat-icon>check_box_outline_blank</mat-icon>
+    </button>
+    <button [disabled]="!edit" mat-icon-button title="Line" (click)="changeGeometry('LineString')">
+      <mat-icon>timeline</mat-icon>
+    </button>
+    <button [disabled]="!edit" mat-icon-button title="Point" (click)="changeGeometry('Point')">
+      <mat-icon>scatter_plot</mat-icon>
+    </button>
+    <button [disabled]="!edit" mat-icon-button title="Circle" (click)="changeGeometry('Circle')">
+      <mat-icon>radio_button_unchecked</mat-icon>
+    </button>
+  </div>
+
+  <div class="otherbtns">
+    <button mat-icon-button title="Select Feature" (click)="select()">
+      <mat-icon>near_me</mat-icon>
+    </button>
+    <button mat-icon-button title="Box Select" (click)="selectMultiple()">
+      <mat-icon>photo_size_select_small</mat-icon>
+    </button>
+    <button mat-icon-button title="Delete Selected" (click)="deleteSelected()">
+      <mat-icon color="warn">delete</mat-icon>
+    </button>
+    <button mat-icon-button title="Clear All!" (click)="clearAll()">
+      <mat-icon color="warn">clear</mat-icon>
+    </button>
+    <button mat-icon-button title="Save Features" (click)="saveFeatures()">
+      <mat-icon>save</mat-icon>
+    </button>
+  </div>
+
+</div>
+
+
+
