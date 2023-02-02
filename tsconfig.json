@@ -16,6 +16,8 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "resolveJsonModule": true, // Added to allow importation.
+    "esModuleInterop": true, // Also added.
     "target": "es2017",
     "module": "es2020",
     "lib": [

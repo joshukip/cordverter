@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Check where necessary</h2>
+<div mat-dialog-content>
+  <section class="example-section" [formGroup]="conf_tofeet">
+    <p><mat-checkbox formControlName="conf">Perform Conformality</mat-checkbox></p>
+    <p><mat-checkbox formControlName="tofeet">Convert to feet</mat-checkbox></p>
+  </section>
+
+</div>
+<div mat-dialog-actions align="end">
+
+  <button class="btn" mat-raised-button [mat-dialog-close]="conf_tofeet.value" cdkFocusInitial>PROCEED</button>
+
+</div>

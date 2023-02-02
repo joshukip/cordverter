@@ -32,11 +32,9 @@ html, body {
   text-align: justify;
 }
 
-
-.title {
-  font-family: stencil;
-  font-weight: 400;
-  font-size: large;
+img {
+  width: 200px;
+  height: 75px;
   cursor: pointer;
 }
 

@@ -7,6 +7,15 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatMenuModule} from '@angular/material/menu';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatListModule} from '@angular/material/list';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 const MatComponents = [
   MatToolbarModule,
@@ -16,9 +25,18 @@ const MatComponents = [
   MatInputModule,
   MatSelectModule,
   MatIconModule,
-  MatRadioModule
-
+  MatRadioModule,
+  MatMenuModule,
+  DragDropModule,
+  MatListModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatTooltipModule,
+  MatSnackBarModule,
+  MatDialogModule,
+  MatCheckboxModule
 ]
+
 @NgModule({
   imports: [MatComponents],
   exports: [MatComponents]

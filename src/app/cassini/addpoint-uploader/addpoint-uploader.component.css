@@ -1,6 +1,6 @@
-.maincontainer {
+/* .maincontainer {
   margin-right: auto;
-}
+} */
 
 .itab{
   width: 100%;
@@ -15,11 +15,6 @@
   flex-direction: column;
   align-items: flex-start;
   width: 40vw;
-  margin-bottom: 0px;
-}
-
-.form {
-  width: 40vw;
 }
 
 .formfieldbox{
@@ -28,8 +23,7 @@
 }
 
 .example-full-width {
-  max-width: calc((40vw/4) - 12px);
-  max-height: 60px;
+  max-width: calc((40vw/2) - 12px);
   margin-right: 6px;
 }
 
@@ -42,12 +36,40 @@
   border-bottom: 2px solid rgb(30, 29, 29);
 }
 
-.station {
-  width: 60px;
-  font-weight: bold;
+.sectTitle {
+  /* font-family: Megrim; */
+  font-size: small;
+  font-weight: 400;
+  color: rgb(27, 26, 26);
+  border-bottom: 1px solid gray;
+}
+.addPointBtn{
+  position: relative;
+  top: -8px;
 }
 
-.btns {
+.form {
+  width: 40vw;
+}
+
+.fileuploaded {
+  color: rgb(60, 203, 60);
+  text-transform: uppercase;
+  margin-top: 11px;
+  align-self: center;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+.datatable{
+  width: 40vw;
+  margin-top: 16px;
+  /* margin: auto; */
+}
+
+.btns1 {
   margin-top: 12px;
 }
 
@@ -58,6 +80,5 @@
 
 .uploader {
   width: 40vw;
-  /* display: flex;
-  align-items: flex-start; */
 }
+

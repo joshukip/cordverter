@@ -1,1 +1,91 @@
-<p>cassini works!</p>
+<div class="maincontainer">
+  <!-- Contains two main tabs
+    1. SoK 4 Param with corner sheets
+    2. T.Gachoki 7 param transform
+  -->
+  <mat-tab-group (selectedTabChange)="TabSelectedChange($event)" animationDuration="0ms" color="accent" mat-align-tabs="center" class="tabContainer">
+
+    <!-- SoK CASSINI TO UTM tab -->
+    <mat-tab label="Cassini-UTM SoK">
+      <app-addpoint-uploader [tabIndex]="index"></app-addpoint-uploader>
+    </mat-tab>
+
+    <!-- SoK UTM_CASSINI tab -->
+    <mat-tab label="UTM-Cassini SoK">
+      <app-addpoint-uploader [tabIndex]="index"></app-addpoint-uploader>
+    </mat-tab>
+
+    <!-- 7 parameter tab -->
+    <mat-tab label="7 Parameter">
+      <div class="itab">
+
+        <!-- Adding points on the app -->
+        <div class="form">
+
+          <p class="titlehead">Enter points(CASSINI X, CASSINI Y, UTM E, UTM N)</p>
+
+          <form [formGroup]="inputform" >
+          <ul style="margin-bottom: 0;" *ngFor="let item of common_points, let i=index" >
+              <div class="flex-box">
+                  <div class="formfieldbox">
+                    <div class="station">
+                      Point {{i+1}}
+                    </div>
+                    <div class="formfield">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <input
+                          formControlName="CassiniX_{{i+1}}"
+                          type="number"
+                          matInput
+                          placeholder="Cassini X">
+                      </mat-form-field>
+                    </div>
+                    <div class="formfield">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <input
+                          formControlName="CassiniY_{{i+1}}"
+                          type="number"
+                          matInput
+                          placeholder="Cassini Y">
+                      </mat-form-field>
+                    </div>
+                    <div class="formfield">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <input
+                          formControlName="UTME_{{i+1}}"
+                          type="number"
+                          matInput
+                          placeholder="UTM E">
+                      </mat-form-field>
+                    </div>
+                    <div class="formfield">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <input
+                          formControlName="UTMN_{{i+1}}"
+                          type="number"
+                          matInput
+                          placeholder="UTM N">
+                      </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </ul>
+          </form>
+        </div>
+        
+        <!-- Uploader  -->
+        <p class="titlehead">Or Browse from Files</p>
+        <app-uploader class="uploader" (fileData)="receivePointData($event)"></app-uploader>
+
+        <!-- Buttons -->
+        <div class="btns">
+          <button  mat-button style="margin-right: 10px;" class="btn" (click)="promptDialog()">Generate Parameters</button>
+          <button mat-button class="btn" (click)="performTransformation()">Perform Transformation</button>
+        </div>
+
+      </div>
+    </mat-tab>
+
+
+  </mat-tab-group>
+</div>

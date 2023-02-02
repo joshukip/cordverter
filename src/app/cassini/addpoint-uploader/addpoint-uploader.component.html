@@ -1,0 +1,89 @@
+<div class="itab">
+
+
+  <!-- Adding points on the app -->
+  <div class="form">
+
+    <p class="titlehead">Enter points( X, Y)</p>
+
+    <form [formGroup]="inputform">
+      <div class="flex-box">
+          <div class="formfieldbox">
+
+            <div class="formfield">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <input
+                  formControlName="X"
+                  type="number"
+                  matInput
+                  placeholder="X">
+              </mat-form-field>
+            </div>
+            <div class="formfield">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <input
+                  formControlName="Y"
+                  type="number"
+                  matInput
+                  placeholder="Y">
+              </mat-form-field>
+            </div>
+            <!-- Add button -->
+            <div class="addPointBtn">
+              <button [disabled]="this.inputform.invalid" class="btn" (click)="addPoint()">Add point</button>
+            </div>
+
+          </div>
+
+
+        </div>
+    </form>
+
+  </div>
+
+  <!-- Uploader  -->
+  <p class="titlehead">Or Browse from Files
+    <span><mat-icon style="color: goldenrod; cursor: pointer;">info</mat-icon></span>
+  </p>
+
+  <app-uploader class="uploader" (fileData)="receivePointData($event)"></app-uploader>
+
+  <!-- Notification if CSV file loaded successfully or not -->
+  <div class="fileuploaded" *ngIf="csvLoaded" >
+    <p>
+      <mat-icon class="mat-icon">check_circle_outline</mat-icon>
+      CSV file uploaded successfully...
+    </p>
+  </div>
+
+  <!-- Data Table *ngIf="this.pointData.length > 0" -->
+  <div class="datatable" *ngIf="this.pointData.length > 0">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th *ngFor="let item of recTblColumns">
+              {{item}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let point of pointData, let i=index" (mouseover)="openSnackBar()" (dblclick)="deleteRow(this.pointData, i)">
+          <td scope="row">{{i+1}}: {{point.X}} </td>
+          <td>{{point.Y}}</td>
+          <!-- <td>{{point.z}}</td> -->
+          <!-- <td>
+            <button (dblclick)="deleteRow(this.recList, i)"  mat-button class="primary">Delete Row</button>
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Buttons -->
+  <div class="btns1">
+    <button mat-button style="margin-right: 10px;" class="btn" (click)="reset()">Reset Table</button>
+    <button mat-button class="btn" *ngIf="tabIndex == 0" (click)="promptDialog()">Transform & Save CSV</button>
+    <button mat-button class="btn" *ngIf="tabIndex == 1" (click)="UTMtoCassini()">Transform & Save CSV</button>
+  </div>
+
+</div>

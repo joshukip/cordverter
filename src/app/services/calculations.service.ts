@@ -35,9 +35,9 @@ export class CalculationsService {
     let latitude = this.ConvertDDToDMS(lat, false);
     let longitude = this.ConvertDDToDMS(long, true);
 
-    let geoArr = {latitude,longitude,h}
-
+    let geoArr = {latitude,longitude,h};
     return geoArr;
+
   }
 
   // Geodetic to Rectangular

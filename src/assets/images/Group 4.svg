@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="134" height="43" viewBox="0 0 134 43">
+  <g id="Group_4" data-name="Group 4" transform="translate(-757 -405)">
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="134" height="43" transform="translate(757 405)" fill="#292920"/>
+    <g id="Group_1" data-name="Group 1" transform="translate(1 -24)">
+      <g id="Ellipse_3" data-name="Ellipse 3" transform="translate(769 432)" fill="none" stroke="#e3a72f" stroke-linecap="round" stroke-width="1">
+        <circle cx="19" cy="19" r="19" stroke="none"/>
+        <circle cx="19" cy="19" r="18.5" fill="none"/>
+      </g>
+      <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(772 436)" fill="none" stroke="#e3a72f" stroke-linecap="round" stroke-width="1">
+        <circle cx="15.5" cy="15.5" r="15.5" stroke="none"/>
+        <circle cx="15.5" cy="15.5" r="15" fill="none"/>
+      </g>
+      <g id="Ellipse_2" data-name="Ellipse 2" transform="translate(776 440)" fill="none" stroke="#e3a72f" stroke-linecap="round" stroke-width="0.8">
+        <circle cx="11" cy="11" r="11" stroke="none"/>
+        <circle cx="11" cy="11" r="10.6" fill="none"/>
+      </g>
+      <circle id="Ellipse_4" data-name="Ellipse 4" cx="13" cy="13" r="13" transform="translate(790 438)" fill="#292920"/>
+      <text id="ORDVERTER.IO" transform="translate(770 442)" fill="#e3a72f" font-size="12" font-family="Blanka-Regular, Blanka" letter-spacing="0.056em"><tspan x="12.228" y="14">ordverter.io</tspan></text>
+      <circle id="Ellipse_5" data-name="Ellipse 5" cx="1" cy="1" r="1" transform="translate(800 437)" fill="#e3a72f"/>
+      <circle id="Ellipse_6" data-name="Ellipse 6" cx="1.5" cy="1.5" r="1.5" transform="translate(799 463)" fill="#e3a72f"/>
+      <circle id="Ellipse_9" data-name="Ellipse 9" cx="1.5" cy="1.5" r="1.5" transform="translate(770 441)" fill="#e3a72f"/>
+      <circle id="Ellipse_10" data-name="Ellipse 10" cx="1.5" cy="1.5" r="1.5" transform="translate(778 437)" fill="#e3a72f"/>
+      <circle id="Ellipse_7" data-name="Ellipse 7" cx="1" cy="1" r="1" transform="translate(792 441)" fill="#e3a72f"/>
+      <circle id="Ellipse_8" data-name="Ellipse 8" cx="1.5" cy="1.5" r="1.5" transform="translate(774 459)" fill="#e3a72f"/>
+    </g>
+  </g>
+</svg>

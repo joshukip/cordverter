@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 import { Ellipsoid } from './../ellipsoid';
 import { EllipsoidsService } from '../services/ellipsoids.service';
 import { CalculationsService } from './../services/calculations.service';
@@ -20,8 +22,8 @@ export class ConvertComponent implements OnInit {
   recList: any;
   geoList: any;
   plainGeoList: any; // Geodetic array with no degree, minute or second symbols.
-  recTblColumns =  ['X','Y','Z','ACTION'];
-  geoTblColumns = ['LATITUDE','LONGITUDE','HEIGHT', 'ACTION'];
+  recTblColumns =  ['X','Y','Z'];
+  geoTblColumns = ['LATITUDE','LONGITUDE','HEIGHT'];
 
   ellipsoids: Ellipsoid[];
   selectedOption: string = '4';
@@ -33,11 +35,13 @@ export class ConvertComponent implements OnInit {
   converted = false;
 
   constructor(
+    private _snackbar: MatSnackBar,
     private fb: FormBuilder,
     private ellipsoidsService: EllipsoidsService,
     private calculationsService: CalculationsService,
     private fileParser: ParseFileService,
-    private fileStorage: FilestorageService) {
+    private fileStorage: FilestorageService,
+    ) {
 
     this.ellipsoids = this.ellipsoidsService.getAllEllipsoids();
 
@@ -69,16 +73,19 @@ export class ConvertComponent implements OnInit {
 
 
   receiveRecData(event: any) {
-    console.log(event);
+    // console.log(event);
     this.recList = [];
     this.recList = event;
   }
 
   receiveGeoData(event: any) {
-    // console.log(event);
+    console.log(event);
+    // console.log(this.fileStorage);
     this.plainGeoList = [];
 
     for (let a in event) {
+
+      // The CSV file should have LATDEG, LATMIN, LATSEC, LONGDEG, LONGMIN, LONGSEC, HEIGHT headers and columns.
 
       let symboledlatitude = `${event[a].LATDEG}° ${event[a].LATMIN}' ${event[a].LATSEC}”`;
       let symboledlongitude = `${event[a].LONGDEG}° ${event[a].LONGMIN}' ${event[a].LONGSEC}”`;
@@ -91,6 +98,7 @@ export class ConvertComponent implements OnInit {
       let lon = [+event[a].LONGDEG, +event[a].LONGMIN, +event[a].LONGSEC]
       let height = +event[a].HEIGHT;
 
+
       let latitude = this.calculationsService.convertDMStoDD(lat);
       let longitude = this.calculationsService.convertDMStoDD(lon);
 
@@ -98,7 +106,7 @@ export class ConvertComponent implements OnInit {
 
       this.plainGeoList.push(plainValues);
     }
-    console.log(this.plainGeoList);
+    // console.log(this.plainGeoList);
   }
 
   ngOnInit() { }
@@ -133,11 +141,19 @@ export class ConvertComponent implements OnInit {
 
     let plainValues = {latitude, longitude, height};
     this.plainGeoList.push(plainValues);
+
     // Reset Form
     // this.geotoRecForm.reset();
   }
 
-
+  // Show a snack bar that informs a user that they can delete a row by doubleClicking
+  openSnackBar() {
+    const message = 'Double click on a row to delete it.';
+    const action = 'OK';
+    this._snackbar.open(message, action,{
+      duration: 2000,
+    });
+  }
 
   reset() {
     this.recList = [];
@@ -160,11 +176,11 @@ export class ConvertComponent implements OnInit {
       this.recListConverted.push(this.calculationsService.geodeticToRec(lat, lon, h, a, f))
     }
 
-    console.log(this.recListConverted)
+    // console.log(this.recListConverted)
     this.converted = true;
 
     // Then download csv
-    this.downloadCSV(this.recListConverted);
+    // this.downloadCSV(this.recListConverted);
     this.recListConverted = [];
   }
 
@@ -174,11 +190,13 @@ export class ConvertComponent implements OnInit {
     let f = current.f;
 
     for (let i in this.recList){
+
       let x = +this.recList[i].x;
       let y = +this.recList[i].y;
       let z = +this.recList[i].z;
 
       this.geoListConverted.push(this.calculationsService.recToGeodetic(x, y, z, a, f))
+
     }
 
     // console.log(this.geoListConverted)
@@ -187,6 +205,11 @@ export class ConvertComponent implements OnInit {
     // Then download csv
     this.downloadCSV(this.geoListConverted);
     this.geoListConverted = [];
+  }
+
+  // deleterow
+  deleteRow(arr: Array<number>,i: number) {
+    arr.splice(i, 1);
   }
 
 //   downloadCSV(itemsArray: any) {
@@ -255,6 +278,10 @@ downloadCSV (data: any) {
   document.body.appendChild(downloadLink);
   downloadLink.click();
   document.body.removeChild(downloadLink);
+  }
+
+  downloadCSV01() {
+    this.fileStorage.rectoGeoCSV()
   }
 
 }

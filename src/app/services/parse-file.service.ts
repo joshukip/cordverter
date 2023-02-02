@@ -17,6 +17,7 @@ export class ParseFileService {
 
       fileReader.onerror = (e: any) => {
           reject(fileReader.error);
+          console.log(e);
       }
 
       fileReader.onload = (e: any) => {
@@ -29,13 +30,15 @@ export class ParseFileService {
     })
   }
 
-  parseCSV (csv: string) {
+  /*parseCSV (csv: string) {
     const lines = csv.split("\r\n");
     const headers = lines[0].split(',');
+    // console.log(lines)
     this.headers = headers;
-    let results = [];
+    let results = []
 
-    for (let x = 1; x < lines.length - 1; x++) {
+
+    for (let x = 1; x < lines.length-1; x++) {
         let obj: any = {};
         const currentLine = lines[x].split(',').map((s: string) => s.trim());
 
@@ -46,8 +49,29 @@ export class ParseFileService {
         results.push(obj);
     }
 
+    // console.log(results)
     return JSON.stringify(results, null, '\t');
     // return results;
+
+  }*/
+
+  parseCSV(csv : string) {
+    const lines = csv.split("\r");
+    const headers = lines[0].split(',');
+    let results = [];
+
+    for (let x = 1; x < lines.length - 1; x++) {
+        let obj: any = {};
+        const currentLine = lines[x].split(',').map(s => s.trim());
+
+        for (let y = 0; y < headers.length; y++) {
+            obj[headers[y]] = currentLine[y];
+        }
+
+        results.push(obj);
+    }
+
+    return JSON.stringify(results, null, "\t");
   }
 
 }

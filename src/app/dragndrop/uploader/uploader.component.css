@@ -32,7 +32,7 @@ input[type="file"] {
 }
 
 .dropzone.hovering {
-  background-color: green;
+  border-color: goldenrod;
   outline: none;
   text-transform: lowercase;
 }

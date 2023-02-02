@@ -42,6 +42,7 @@ export class UploaderComponent {
       this.parseFile.csv(files[0]).then(json => {
         let data = JSON.parse(json);
         this.fileData.emit(data);
+        // console.log('data'+ data);
         // this.fileStorage.file = data;
         // this.navigator.navigateByUrl('/cassini')
         // this.fileStorage.fileLoaded = true;
@@ -54,7 +55,9 @@ export class UploaderComponent {
     this.fileReady = true;
     this.filename = e.target.files[0].name
     let files = e.target.files[0];
+    // console.log('data'+ this.filename);
     this.parseFile.csv(files).then(json => {
+      // console.log('Json: '+ json)
       let data = JSON.parse(json);
       this.fileData.emit(data);
       // this.fileStorage.file = data;

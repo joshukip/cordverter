@@ -8,8 +8,8 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 17px;
-
 }
+
 .flex-box{
   display: flex;
   flex-direction: column;
@@ -37,6 +37,8 @@
 }
 
 .titlehead {
+  font-weight: bold;
+  text-transform: uppercase;
   width: fit-content;
   /* padding: 8px; */
   margin: 2px auto;
@@ -63,6 +65,10 @@
   width: 40vw;
   margin-top: 16px;
   /* margin: auto; */
+}
+
+.btns1 {
+  margin-top: 12px;
 }
 
 .btn {

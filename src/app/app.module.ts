@@ -10,6 +10,9 @@ import { DropzoneDirective } from './dragndrop/dropzone.directive';
 import { UploaderComponent } from './dragndrop/uploader/uploader.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AboutComponent } from './about/about.component';
+import { ConfUnitsComponent } from './dialogs/conf-units/conf-units.component';
+import { AddpointUploaderComponent } from './cassini/addpoint-uploader/addpoint-uploader.component';
 
 
 @NgModule({
@@ -18,7 +21,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     routingComponents,
     ConvertComponent,
     DropzoneDirective,
-    UploaderComponent
+    UploaderComponent,
+    AboutComponent,
+    ConfUnitsComponent,
+    AddpointUploaderComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +34,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     NgbModule
   ],
+  
   providers: [],
   bootstrap: [AppComponent]
 })

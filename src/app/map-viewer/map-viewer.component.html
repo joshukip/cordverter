@@ -1,65 +1,149 @@
-<div id="map" [class]="mousehover? 'mapcoordinate' : '' "></div>
+<!-- <div [ngClass]="showPanel ? 'mapContainerwithSidePanel': 'mapContainer'" class="mapContainer">
+  <div [ngClass]="showPanel ? 'sidePanelOn': 'sidePanelOff'" id="layerPanel">
+  </div>
+</div> -->
+<div id="map"></div>
+<div [ngClass]="showPanel ? 'sidePanelOn': 'sidePanelOff'" cdkDrag>
+  <div class="panelHeader"  cdkDragHandle>
+    <div class="headertitle">
+      <h2>Layer Panel</h2>
+    </div>
+    <div class="panelbtndiv">
+      <button mat-icon-button title="Minimise" (click)="minimizePanel()">
+        <mat-icon style="color: goldenrod;">remove</mat-icon>
+      </button>
+      <button mat-icon-button title="Expand" (click)="maximizePanel()">
+        <mat-icon style="color: goldenrod;">tab</mat-icon>
+      </button>
+      <button mat-icon-button title="Close" color="warn" (click)="closePanel()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div [ngClass]="expandpanel ? 'paneldetails' : 'paneldetailsOff'">
+    <div class="pickerlayer" style="padding: 11px;">
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Picked Points
+          </mat-panel-title>
+          <!-- <mat-panel-description>
+            This is a summary of the content
+          </mat-panel-description> -->
+        </mat-expansion-panel-header>
+        <div class="expansionPanelBody">
+          <mat-list *ngFor="let point of pickedCoordinates; let i = index">
+            <mat-list-item>
+              <mat-icon style="color: goldenrod;">location_on</mat-icon>
+              <mat-label style="margin-left: 2px;">
+                <span style="text-decoration: underline; color: goldenrod;">Point {{i+1}}</span>
+                 {{point}}
+              </mat-label>
+              <button mat-icon-button (click)="removePickedPoint(i)">
+                <mat-icon color="warn" size="small">delete</mat-icon>
+              </button>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+           </mat-list>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel hideToggle style="margin-top: 8px;">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Layers
+          </mat-panel-title>
+          <!-- <mat-panel-description>
+            This is a summary of the content
+          </mat-panel-description> -->
+        </mat-expansion-panel-header>
+        <mat-list>
+          <mat-list-item>
+            <!-- <mat-icon style="color: goldenrod;">location_on</mat-icon> -->
+            <mat-label style="margin-left: 2px;">
+               Layer 001
+            </mat-label>
+            <button mat-icon-button>
+              <mat-icon color="warn" size="small">delete</mat-icon>
+            </button>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+         </mat-list>
+      </mat-expansion-panel>
+    </div>
+  </div>
+</div>
 
 <div class="draw">
 
   <div class="togglebasemap">
-    <!-- <mat-radio-group>
-      <mat-radio-button color="primary" value="1">
-        TOGGLE BASEMAP
-      </mat-radio-button>
-    </mat-radio-group> -->
-    <button mat-icon-button title="Toggle Basemap" (click)="toggleBasemap()">
-      <mat-icon *ngIf="bmapvisible" >layers_clear</mat-icon>
-      <mat-icon *ngIf="!bmapvisible" >layers</mat-icon>
+    <button mat-icon-button matTooltip="toggle layer panel" (click)="toggleLayerPanel()">
+      <mat-icon [ngClass]="showPanel ? 'btnactive': ''">layers</mat-icon>
     </button>
-    <button mat-icon-button title="Pick Coordinate" (click)="getMousePosition()">
+    <button mat-icon-button matTooltip="Toggle Basemap" (click)="toggleBasemap()">
+      <!-- <mat-icon *ngIf="bmapvisible" >layers_clear</mat-icon> -->
+      <mat-icon [ngClass]="bmapvisible ? 'btnactive': ''">public</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Pick Coordinate" (click)="pickPosition()">
+      <mat-icon [ngClass]="pickPoint ? 'btnactive': ''">location_on</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Reset View" (click)="resetView()">
       <mat-icon>center_focus_strong</mat-icon>
     </button>
-    <button mat-icon-button title="Set Projection">
-      <mat-icon>public</mat-icon>
-    </button>
-    <button mat-icon-button title="Import Feature">
+    <button (click)="inputFile.click()" mat-icon-button matTooltip="Import Feature">
       <mat-icon>folder</mat-icon>
+      <input #inputFile class="uploader" type="file" accept=".csv"/>
     </button>
   </div>
 
   <div class="drawicons">
-    <button mat-icon-button title="Toggle Edits" (click)="toggleEdits()">
-      <mat-icon>edit</mat-icon>
+    <button mat-icon-button matTooltip="Toggle Edits" (click)="toggleEdits()">
+      <mat-icon [ngClass]="edit ? 'btnactive': ''">edit</mat-icon>
     </button>
-    <button [disabled]="!edit" mat-icon-button title="Polygon" (click)="changeGeometry('Polygon')">
-      <mat-icon>check_box_outline_blank</mat-icon>
+    <button [disabled]="!edit" mat-icon-button matTooltip="Polygon" (click)="changeGeometry('Polygon')">
+      <mat-icon [ngClass]="geoType == 'Polygon' ? 'btnactive': ''">check_box_outline_blank</mat-icon>
     </button>
-    <button [disabled]="!edit" mat-icon-button title="Line" (click)="changeGeometry('LineString')">
-      <mat-icon>timeline</mat-icon>
+    <button [disabled]="!edit" mat-icon-button matTooltip="Line" (click)="changeGeometry('LineString')">
+      <mat-icon [ngClass]="geoType == 'LineString' ? 'btnactive': ''">timeline</mat-icon>
     </button>
-    <button [disabled]="!edit" mat-icon-button title="Point" (click)="changeGeometry('Point')">
-      <mat-icon>scatter_plot</mat-icon>
+    <button [disabled]="!edit" mat-icon-button matTooltip="Point" (click)="changeGeometry('Point')">
+      <mat-icon [ngClass]="geoType == 'Point' ? 'btnactive': ''">scatter_plot</mat-icon>
     </button>
-    <button [disabled]="!edit" mat-icon-button title="Circle" (click)="changeGeometry('Circle')">
+
+    <!-- circle is not a recognized vector shape -->
+    <!-- <button [disabled]="!edit" mat-icon-button title="Circle" (click)="changeGeometry('Circle')">
       <mat-icon>radio_button_unchecked</mat-icon>
-    </button>
+    </button> -->
   </div>
 
   <div class="otherbtns">
-    <button mat-icon-button title="Select Feature" (click)="select()">
-      <mat-icon>near_me</mat-icon>
+    <button mat-icon-button matTooltip="Select Feature" (click)="select()">
+      <mat-icon [ngClass]="singleSelection ? 'btnactive': ''">near_me</mat-icon>
     </button>
-    <button mat-icon-button title="Box Select" (click)="selectMultiple()">
-      <mat-icon>photo_size_select_small</mat-icon>
+    <button mat-icon-button matTooltip="Box Select" (click)="selectMultiple()">
+      <mat-icon [ngClass]="multipleSelection ? 'btnactive': ''">photo_size_select_small</mat-icon>
     </button>
-    <button mat-icon-button title="Delete Selected" (click)="deleteSelected()">
+    <button mat-icon-button matTooltip="Delete Selected" (click)="deleteSelected()">
       <mat-icon color="warn">delete</mat-icon>
     </button>
-    <button mat-icon-button title="Clear All!" (click)="clearAll()">
+    <button mat-icon-button matTooltip="Clear All!" (click)="clearAll()">
       <mat-icon color="warn">clear</mat-icon>
     </button>
-    <button mat-icon-button title="Save Features" (click)="saveFeatures()">
+    <button mat-icon-button matTooltip="Save Features" [matMenuTriggerFor]="saveMenu">
       <mat-icon>save</mat-icon>
     </button>
+    <!-- <button mat-button [matMenuTriggerFor]="aboveMenu">Above</button> -->
+    <mat-menu #saveMenu="matMenu" yposition="below" class="saveMenu">
+      <button mat-menu-item (click)="saveFeatures('kml')">Save KML</button>
+      <button mat-menu-item (click)="saveFeatures('json')">Save GeoJSON</button>
+    </mat-menu>
   </div>
 
+  <!-- <div class="cursor"></div> -->
+  <!-- <div class="cursor" [style.top]="top" [style.left]="left"></div> -->
+
 </div>
+
 
 
 
